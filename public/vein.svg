@@ -1,0 +1,39 @@
+<svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="veinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke="url(#veinGradient)" stroke-width="2" stroke-linecap="round">
+    <!-- Main Vein -->
+    <path d="M200,50 Q200,120 150,180 T100,250" />
+    <path d="M200,50 Q200,120 250,180 T300,250" />
+    
+    <!-- Left branches -->
+    <path d="M175,115 Q160,130 140,130" />
+    <path d="M160,145 Q140,150 120,140" />
+    <path d="M145,165 Q130,170 110,160" />
+    <path d="M130,185 Q110,190 90,180" />
+    <path d="M115,205 Q95,210 80,200" />
+    
+    <!-- Right branches -->
+    <path d="M225,115 Q240,130 260,130" />
+    <path d="M240,145 Q260,150 280,140" />
+    <path d="M255,165 Q270,170 290,160" />
+    <path d="M270,185 Q290,190 310,180" />
+    <path d="M285,205 Q305,210 320,200" />
+    
+    <!-- Detail lines -->
+    <path d="M140,130 Q130,140 125,155" stroke-width="1.5" />
+    <path d="M120,140 Q115,150 110,170" stroke-width="1.5" />
+    <path d="M110,160 Q100,170 95,190" stroke-width="1.5" />
+    <path d="M90,180 Q80,190 75,210" stroke-width="1.5" />
+    
+    <path d="M260,130 Q270,140 275,155" stroke-width="1.5" />
+    <path d="M280,140 Q285,150 290,170" stroke-width="1.5" />
+    <path d="M290,160 Q300,170 305,190" stroke-width="1.5" />
+    <path d="M310,180 Q320,190 325,210" stroke-width="1.5" />
+  </g>
+</svg> 
