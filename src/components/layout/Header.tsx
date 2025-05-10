@@ -278,12 +278,6 @@ const Header = () => {
                         Dashboard
                     </NavLink>
                     <NavLink
-                        href="/pool"
-                        isactive={pathname === '/pool'}
-                    >
-                        Pool
-                    </NavLink>
-                    <NavLink
                         href="/mypage"
                         isactive={pathname === '/mypage'}
                     >

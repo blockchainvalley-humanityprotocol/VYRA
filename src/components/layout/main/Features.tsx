@@ -33,7 +33,6 @@ const Feature = ({
     );
 };
 
-// 특징 섹션 컴포넌트
 const Features = () => {
     return (
         <FeaturesSection>

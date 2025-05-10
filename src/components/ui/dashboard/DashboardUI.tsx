@@ -33,7 +33,7 @@ export const DashboardContainer = styled.div`
 `;
 
 export const DashboardHeader = styled.div`
-    margin-bottom: 2rem;
+    margin: 7rem;
 `;
 
 export const DashboardTitle = styled.h1`

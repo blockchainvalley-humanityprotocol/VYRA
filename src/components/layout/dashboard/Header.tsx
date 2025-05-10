@@ -64,8 +64,7 @@ const CalendarIcon = () => (
 );
 
 const Header: React.FC = () => {
-    // Current date is set to 2025/05/10
-    const currentDate = new Date('2025-05-10');
+    const currentDate = new Date('2025-05-12');
     const formattedDate = currentDate.toLocaleDateString(
         'en-US',
         {

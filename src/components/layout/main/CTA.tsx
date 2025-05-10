@@ -18,7 +18,7 @@ const CTA = () => {
                 <CTADescription>
                     Experience a new approach to DeFi with
                     opportunities for{' '}
-                    <Highlight>up to 100x</Highlight> APY.
+                    <Highlight>UP TO 100X</Highlight> APY.<br/>
                     Secure with vein authentication,
                     transparent with blockchain technology.
                 </CTADescription>

@@ -36,7 +36,6 @@ const float = keyframes`
   }
 `;
 
-// 메인 섹션 컨테이너
 export const HeroSection = styled.section`
     min-height: 100vh;
     display: flex;
@@ -80,12 +79,13 @@ export const HeroTitle = styled.h1`
     font-weight: 800;
     margin-top: 3rem;
     margin-bottom: 1.5rem;
-    background: linear-gradient(
-        to right,
-        #60a5fa,
-        #c084fc,
-        #f472b6
-    );
+    background : white;
+    // background: linear-gradient(
+    //     to right,
+    //     #60a5fa,
+    //     #c084fc,
+    //     #f472b6
+    // );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -0.025em;
