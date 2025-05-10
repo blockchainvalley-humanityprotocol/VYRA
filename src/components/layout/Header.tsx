@@ -1,9 +1,9 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import styled, { css, keyframes } from 'styled-components';
 
-// 애니메이션 정의
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -15,25 +15,35 @@ const fadeIn = keyframes`
   }
 `;
 
-// 헤더 스타일링
 const HeaderContainer = styled.header`
     background-color: #0f172a;
     color: white;
-    border-bottom: 1px solid #1e293b;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
-        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(224, 217, 213, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(224, 217, 213, 0.1),
+                0 2px 4px -1px rgba(224, 217, 213, 0.06),
+                0 0 0 1px rgba(224, 217, 213, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    height: 64px;
 `;
 
 const HeaderInner = styled.div`
     max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 100%;
+    transition: padding 0.3s ease;
 `;
 
-// 로고 스타일링
 const LogoContainer = styled.div`
     display: flex;
     align-items: center;
@@ -85,7 +95,6 @@ const LogoSubtext = styled.span`
     }
 `;
 
-// 네비게이션 스타일링
 const Nav = styled.nav`
     display: none;
     align-items: center;
@@ -96,29 +105,15 @@ const Nav = styled.nav`
     }
 `;
 
-const NavLink = styled(Link)`
+const NavLink = styled(Link) <{ isactive?: boolean }>`
     position: relative;
-    font-size: 0.875rem;
-    color: #cbd5e1;
+    font-size: 1rem;
+    color: ${props => props.isactive ? 'white' : 'rgb(139, 136, 134)'};
     transition: color 0.2s;
+    font-weight: ${props => props.isactive ? 'bold' : 'normal'};
 
     &:hover {
         color: white;
-    }
-
-    &::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background-color: #60a5fa;
-        transition: width 0.3s;
-    }
-
-    &:hover::after {
-        width: 100%;
     }
 `;
 
@@ -133,12 +128,15 @@ const LoginButton = styled(Link)`
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     border-radius: 0.25rem;
-    border: 1px solid #475569;
-    color: white;
-    transition: background-color 0.2s;
+    font-weight: bold;
+    border: 1px solid #60a5fa;
+    color: #60a5fa;
+    transition: all 0.3s ease;
 
     &:hover {
-        background-color: #1e293b;
+        background-color: rgba(96, 165, 250, 0.1);
+        border-color: #c084fc;
+        color: #c084fc;
     }
 `;
 
@@ -146,19 +144,22 @@ const RegisterButton = styled(Link)`
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     border-radius: 0.25rem;
-    background-color: #2563eb;
+    background: linear-gradient(135deg, #60a5fa, #c084fc);
     color: white;
-    transition: background-color 0.2s;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
 
     &:hover {
-        background-color: #1d4ed8;
+        background: linear-gradient(135deg, #c084fc, #f472b6);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(244, 114, 182, 0.2);
     }
 `;
 
-// 모바일 메뉴 스타일링
 const MenuButton = styled.button`
     display: flex;
-    color: white;
+    color:rgb(66, 65, 64);
     padding: 0.25rem;
     background: none;
     border: none;
@@ -189,14 +190,15 @@ const MobileNav = styled.nav`
     gap: 1rem;
 `;
 
-const MobileNavLink = styled(Link)`
+const MobileNavLink = styled(Link) <{ isactive?: boolean }>`
     font-size: 0.875rem;
-    color: #cbd5e1;
+    color: ${props => props.isactive ? 'rgb(186, 84, 0)' : '#cbd5e1'};
     padding: 0.5rem 0;
     transition: color 0.2s;
+    font-weight: ${props => props.isactive ? '500' : 'normal'};
 
     &:hover {
-        color: #60a5fa;
+        color: rgb(186, 84, 0);
     }
 `;
 
@@ -210,14 +212,22 @@ const MobileButtonContainer = styled.div`
 
 const MobileLoginButton = styled(LoginButton)`
     text-align: center;
+    width: 100%;
 `;
 
 const MobileRegisterButton = styled(RegisterButton)`
     text-align: center;
+    width: 100%;
+`;
+
+// 네비바 아래 여백을 위한 스타일 수정
+const HeaderSpacer = styled.div`
+    height: 64px;
 `;
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -247,30 +257,35 @@ const Header = () => {
                 </LogoContainer>
 
                 <Nav>
-                    <NavLink href="/dashboard">
-                        대시보드
+                    <NavLink href="/" isactive={pathname === '/'}>
+                        Home
                     </NavLink>
-                    <NavLink href="/allocation">
-                        할당
+                    <NavLink href="/dashboard" isactive={pathname === '/dashboard'}>
+                        Dashboard
                     </NavLink>
-                    <NavLink href="/analytics">
-                        분석
+                    <NavLink href="/pool" isactive={pathname === '/pool'}>
+                        Pool
                     </NavLink>
-                    <NavLink href="/docs">문서</NavLink>
+                    <NavLink href="/mypage" isactive={pathname === '/mypage'}>
+                        Mypage
+                    </NavLink>
+                    <NavLink href="/docs" isactive={pathname === '/docs'}>
+                        docs
+                    </NavLink>
 
                     <ButtonContainer>
                         <LoginButton href="/login">
-                            로그인
+                            SignIn
                         </LoginButton>
                         <RegisterButton href="/register">
-                            회원가입
+                            SignUp
                         </RegisterButton>
                     </ButtonContainer>
                 </Nav>
 
                 <MenuButton
                     onClick={toggleMenu}
-                    aria-label="메뉴 열기/닫기"
+                    aria-label="menu"
                 >
                     <svg
                         width="24"
@@ -301,29 +316,31 @@ const Header = () => {
 
             <MobileMenu isOpen={isMenuOpen}>
                 <MobileNav>
-                    <MobileNavLink href="/dashboard">
-                        대시보드
+                    <MobileNavLink href="/dashboard" isactive={pathname === '/dashboard'}>
+                        dashboard
                     </MobileNavLink>
-                    <MobileNavLink href="/allocation">
-                        할당
+                    <MobileNavLink href="/pool" isactive={pathname === '/pool'}>
+                        pool
                     </MobileNavLink>
-                    <MobileNavLink href="/analytics">
-                        분석
+                    <MobileNavLink href="/mypage" isactive={pathname === '/mypage'}>
+                        mypage
                     </MobileNavLink>
-                    <MobileNavLink href="/docs">
-                        문서
+                    <MobileNavLink href="/docs" isactive={pathname === '/docs'}>
+                        docs
                     </MobileNavLink>
 
                     <MobileButtonContainer>
                         <MobileLoginButton href="/login">
-                            로그인
+                            signin
                         </MobileLoginButton>
                         <MobileRegisterButton href="/register">
-                            회원가입
+                            singup
                         </MobileRegisterButton>
                     </MobileButtonContainer>
                 </MobileNav>
             </MobileMenu>
+
+            <HeaderSpacer />
         </HeaderContainer>
     );
 };

@@ -1,4 +1,5 @@
 import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
 import type { Metadata } from 'next';
 import './globals.css';
 import StyledComponentsRegistry from '../lib/registry';
@@ -19,6 +20,7 @@ export default function RootLayout({
                 <StyledComponentsRegistry>
                     <Header />
                     <main className="">{children}</main>
+                    <Footer />
                 </StyledComponentsRegistry>
             </body>
         </html>

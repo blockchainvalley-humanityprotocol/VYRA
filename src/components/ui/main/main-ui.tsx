@@ -43,7 +43,7 @@ export const HeroSection = styled.section`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 5rem 2rem;
     background: linear-gradient(
         to bottom,
         #0f172a,
@@ -78,6 +78,7 @@ export const HeroContent = styled.div`
 export const HeroTitle = styled.h1`
     font-size: 3.5rem;
     font-weight: 800;
+    margin-top: 3rem;
     margin-bottom: 1.5rem;
     background: linear-gradient(
         to right,
@@ -99,7 +100,6 @@ export const HeroSubtitle = styled.h2`
     font-weight: 500;
     color: #e2e8f0;
     margin-bottom: 2rem;
-    max-width: 800px;
     margin-left: auto;
     margin-right: auto;
 
@@ -145,9 +145,11 @@ export const TokenCircle = styled.div<{
     animation: ${float} 3s infinite ease-in-out;
     animation-delay: ${(props) => props.delay};
     ${(props) => props.position}
+    color: #e2e8f0;
+    font-weight: 600;
+    font-size: 1rem;
 `;
 
-// 특징 섹션
 export const FeaturesSection = styled.section`
     padding: 6rem 2rem;
     background-color: #0a0a0a;
@@ -350,7 +352,7 @@ export const SectionTitle = styled.h2`
         bottom: -15px;
         left: 50%;
         transform: translateX(-50%);
-        width: 80px;
+        width: 150px;
         height: 4px;
         background: linear-gradient(
             to right,

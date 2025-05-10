@@ -11,7 +11,6 @@ import {
     SectionTitle,
 } from '../../ui/main/main-ui';
 
-// 단계 아이템 컴포넌트
 interface StepItemProps {
     number: number;
     title: string;
@@ -36,7 +35,6 @@ const StepItem = ({
     );
 };
 
-// 작동방식 섹션 컴포넌트
 const HowItWorks = () => {
     return (
         <HowItWorksSection>
