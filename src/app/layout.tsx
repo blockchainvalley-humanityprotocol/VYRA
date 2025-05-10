@@ -1,6 +1,7 @@
 import Header from '../components/layout/Header';
 import type { Metadata } from 'next';
 import './globals.css';
+import StyledComponentsRegistry from '@/lib/registry';
 
 export const metadata: Metadata = {
     title: 'VYRA',
@@ -15,10 +16,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Header />
-                <main className="container mx-auto px-4 py-8">
-                    {children}
-                </main>
+                <StyledComponentsRegistry>
+                    <Header />
+                    <main className="">{children}</main>
+                </StyledComponentsRegistry>
             </body>
         </html>
     );
