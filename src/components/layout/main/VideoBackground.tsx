@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const VideoContainer = styled.div`
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     overflow: hidden;
 `;
@@ -33,17 +33,15 @@ const Overlay = styled.div`
 const VideoBackground = () => {
     return (
         <VideoContainer>
-            <Video
-                autoPlay
-                muted
-                loop
-                playsInline
-            >
-                <source src="/herovrya.mp4" type="video/mp4" />
+            <Video autoPlay muted loop playsInline>
+                <source
+                    src="/herovrya.mp4"
+                    type="video/mp4"
+                />
             </Video>
             <Overlay />
         </VideoContainer>
     );
 };
 
-export default VideoBackground; 
+export default VideoBackground;

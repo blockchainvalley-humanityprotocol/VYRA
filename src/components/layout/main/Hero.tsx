@@ -20,6 +20,7 @@ const VideoBackground = styled.div`
     height: 100%;
     overflow: hidden;
     z-index: 0;
+    opacity: 0.8;
 `;
 
 const Video = styled.video`
@@ -45,20 +46,17 @@ const Overlay = styled.div`
     //     rgba(255, 255, 255, 0.7),
     //     rgba(255, 255, 255, 0.85)
     // );
- 
 `;
 
 const Hero = () => {
     return (
         <HeroSection>
             <VideoBackground>
-                <Video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                >
-                    <source src="/herovrya.mp4" type="video/mp4" />
+                <Video autoPlay muted loop playsInline>
+                    <source
+                        src="/herovrya.mp4"
+                        type="video/mp4"
+                    />
                 </Video>
                 <Overlay />
             </VideoBackground>
@@ -67,8 +65,12 @@ const Hero = () => {
                     Every Round, One Pulse Wins Everything
                 </HeroTitle>
                 <HeroSubtitle>
-                    A new DeFi experience combining biometric authentication with blockchain.<br/>
-                    Stake your tokens and receive random APY rewards.
+                    A new DeFi experience combining
+                    biometric authentication with
+                    blockchain.
+                    <br />
+                    Stake your tokens and receive random APY
+                    rewards.
                 </HeroSubtitle>
 
                 <HeroGraphic>

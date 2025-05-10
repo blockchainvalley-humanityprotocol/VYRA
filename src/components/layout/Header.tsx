@@ -20,8 +20,8 @@ const HeaderContainer = styled.header`
     color: white;
     border-bottom: 1px solid rgba(224, 217, 213, 0.1);
     box-shadow: 0 4px 6px -1px rgba(224, 217, 213, 0.1),
-                0 2px 4px -1px rgba(224, 217, 213, 0.06),
-                0 0 0 1px rgba(224, 217, 213, 0.05);
+        0 2px 4px -1px rgba(224, 217, 213, 0.06),
+        0 0 0 1px rgba(224, 217, 213, 0.05);
     position: fixed;
     top: 0;
     left: 0;
@@ -105,12 +105,14 @@ const Nav = styled.nav`
     }
 `;
 
-const NavLink = styled(Link) <{ isactive?: boolean }>`
+const NavLink = styled(Link)<{ isactive?: boolean }>`
     position: relative;
     font-size: 1rem;
-    color: ${props => props.isactive ? 'white' : 'rgb(139, 136, 134)'};
+    color: ${(props) =>
+        props.isactive ? 'white' : 'rgb(139, 136, 134)'};
     transition: color 0.2s;
-    font-weight: ${props => props.isactive ? 'bold' : 'normal'};
+    font-weight: ${(props) =>
+        props.isactive ? 'bold' : 'normal'};
 
     &:hover {
         color: white;
@@ -151,7 +153,11 @@ const RegisterButton = styled(Link)`
     border: none;
 
     &:hover {
-        background: linear-gradient(135deg, #c084fc, #f472b6);
+        background: linear-gradient(
+            135deg,
+            #c084fc,
+            #f472b6
+        );
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(244, 114, 182, 0.2);
     }
@@ -159,7 +165,7 @@ const RegisterButton = styled(Link)`
 
 const MenuButton = styled.button`
     display: flex;
-    color:rgb(66, 65, 64);
+    color: rgb(66, 65, 64);
     padding: 0.25rem;
     background: none;
     border: none;
@@ -190,12 +196,14 @@ const MobileNav = styled.nav`
     gap: 1rem;
 `;
 
-const MobileNavLink = styled(Link) <{ isactive?: boolean }>`
+const MobileNavLink = styled(Link)<{ isactive?: boolean }>`
     font-size: 0.875rem;
-    color: ${props => props.isactive ? 'rgb(186, 84, 0)' : '#cbd5e1'};
+    color: ${(props) =>
+        props.isactive ? 'rgb(186, 84, 0)' : '#cbd5e1'};
     padding: 0.5rem 0;
     transition: color 0.2s;
-    font-weight: ${props => props.isactive ? '500' : 'normal'};
+    font-weight: ${(props) =>
+        props.isactive ? '500' : 'normal'};
 
     &:hover {
         color: rgb(186, 84, 0);
@@ -257,19 +265,34 @@ const Header = () => {
                 </LogoContainer>
 
                 <Nav>
-                    <NavLink href="/" isactive={pathname === '/'}>
+                    <NavLink
+                        href="/"
+                        isactive={pathname === '/'}
+                    >
                         Home
                     </NavLink>
-                    <NavLink href="/dashboard" isactive={pathname === '/dashboard'}>
+                    <NavLink
+                        href="/dashboard"
+                        isactive={pathname === '/dashboard'}
+                    >
                         Dashboard
                     </NavLink>
-                    <NavLink href="/pool" isactive={pathname === '/pool'}>
+                    <NavLink
+                        href="/pool"
+                        isactive={pathname === '/pool'}
+                    >
                         Pool
                     </NavLink>
-                    <NavLink href="/mypage" isactive={pathname === '/mypage'}>
+                    <NavLink
+                        href="/mypage"
+                        isactive={pathname === '/mypage'}
+                    >
                         Mypage
                     </NavLink>
-                    <NavLink href="/docs" isactive={pathname === '/docs'}>
+                    <NavLink
+                        href="/docs"
+                        isactive={pathname === '/docs'}
+                    >
                         docs
                     </NavLink>
 
@@ -316,16 +339,28 @@ const Header = () => {
 
             <MobileMenu isOpen={isMenuOpen}>
                 <MobileNav>
-                    <MobileNavLink href="/dashboard" isactive={pathname === '/dashboard'}>
+                    <MobileNavLink
+                        href="/dashboard"
+                        isactive={pathname === '/dashboard'}
+                    >
                         dashboard
                     </MobileNavLink>
-                    <MobileNavLink href="/pool" isactive={pathname === '/pool'}>
+                    <MobileNavLink
+                        href="/pool"
+                        isactive={pathname === '/pool'}
+                    >
                         pool
                     </MobileNavLink>
-                    <MobileNavLink href="/mypage" isactive={pathname === '/mypage'}>
+                    <MobileNavLink
+                        href="/mypage"
+                        isactive={pathname === '/mypage'}
+                    >
                         mypage
                     </MobileNavLink>
-                    <MobileNavLink href="/docs" isactive={pathname === '/docs'}>
+                    <MobileNavLink
+                        href="/docs"
+                        isactive={pathname === '/docs'}
+                    >
                         docs
                     </MobileNavLink>
 
