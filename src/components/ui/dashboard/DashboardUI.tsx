@@ -209,50 +209,7 @@ export const LoadingSpinner = styled.div`
     }
 `;
 
-// Pool card styles
-export const PoolCard = styled.div<{ $status: string }>`
-    background: linear-gradient(145deg, #ffffff, #f8fafc);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid #e2e8f0;
-    position: relative;
 
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 4px;
-        height: 100%;
-        background-color: ${(props) => {
-            switch (props.$status) {
-                case 'active':
-                    return '#10b981';
-                case 'completed':
-                    return '#6366f1';
-                case 'pending':
-                    return '#f59e0b';
-                default:
-                    return '#cbd5e1';
-            }
-        }};
-    }
-
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    @media (prefers-color-scheme: dark) {
-        background: linear-gradient(
-            145deg,
-            #1e293b,
-            #0f172a
-        );
-        border-color: #334155;
-    }
-`;
 
 export const PoolHeader = styled.div`
     padding: 1.5rem;
