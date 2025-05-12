@@ -3,6 +3,7 @@ import Footer from '../components/layout/Footer';
 import type { Metadata } from 'next';
 import './globals.css';
 import StyledComponentsRegistry from '../lib/registry';
+import PrivyProvider from '../components/providers/PrivyProvider';
 
 export const metadata: Metadata = {
     title: 'VYRA',
@@ -17,11 +18,13 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <StyledComponentsRegistry>
-                    <Header />
-                    <main className="">{children}</main>
-                    <Footer />
-                </StyledComponentsRegistry>
+                <PrivyProvider>
+                    <StyledComponentsRegistry>
+                        <Header />
+                            <main className="">{children}</main>
+                        <Footer />
+                    </StyledComponentsRegistry>
+                </PrivyProvider>
             </body>
         </html>
     );

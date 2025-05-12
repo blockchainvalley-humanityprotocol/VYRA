@@ -2,7 +2,9 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { usePrivy } from '@privy-io/react-auth';
+import VeinAuthModal from '../auth/VeinAuthModal';
 
 const fadeIn = keyframes`
   from {
@@ -105,14 +107,14 @@ const Nav = styled.nav`
     }
 `;
 
-const NavLink = styled(Link)<{ isactive?: boolean }>`
+const NavLink = styled(Link) <{ $isActive?: boolean }>`
     position: relative;
     font-size: 1rem;
     color: ${(props) =>
-        props.isactive ? 'white' : 'rgb(139, 136, 134)'};
+        props.$isActive ? 'white' : 'rgb(139, 136, 134)'};
     transition: color 0.2s;
     font-weight: ${(props) =>
-        props.isactive ? 'bold' : 'normal'};
+        props.$isActive ? 'bold' : 'normal'};
 
     &:hover {
         color: white;
@@ -126,7 +128,7 @@ const ButtonContainer = styled.div`
     margin-left: 1.5rem;
 `;
 
-const LoginButton = styled(Link)`
+const LoginButton = styled.button`
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     border-radius: 0.25rem;
@@ -134,6 +136,8 @@ const LoginButton = styled(Link)`
     border: 1px solid #60a5fa;
     color: #60a5fa;
     transition: all 0.3s ease;
+    background: none;
+    cursor: pointer;
 
     &:hover {
         background-color: rgba(96, 165, 250, 0.1);
@@ -142,7 +146,7 @@ const LoginButton = styled(Link)`
     }
 `;
 
-const RegisterButton = styled(Link)`
+const RegisterButton = styled.button`
     padding: 0.5rem 1rem;
     font-size: 0.875rem;
     border-radius: 0.25rem;
@@ -151,6 +155,7 @@ const RegisterButton = styled(Link)`
     font-weight: bold;
     transition: all 0.3s ease;
     border: none;
+    cursor: pointer;
 
     &:hover {
         background: linear-gradient(
@@ -176,69 +181,24 @@ const MenuButton = styled.button`
     }
 `;
 
-const MobileMenu = styled.div<{ isOpen: boolean }>`
-    display: ${(props) =>
-        props.isOpen ? 'block' : 'none'};
-    margin-top: 1rem;
-    padding-top: 1rem;
-    padding-bottom: 1.25rem;
-    border-top: 1px solid #334155;
-    animation: ${fadeIn} 0.3s ease-out forwards;
-
-    @media (min-width: 768px) {
-        display: none;
-    }
-`;
-
-const MobileNav = styled.nav`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-`;
-
-const MobileNavLink = styled(Link)<{ isactive?: boolean }>`
-    font-size: 0.875rem;
-    color: ${(props) =>
-        props.isactive ? 'rgb(186, 84, 0)' : '#cbd5e1'};
-    padding: 0.5rem 0;
-    transition: color 0.2s;
-    font-weight: ${(props) =>
-        props.isactive ? '500' : 'normal'};
-
-    &:hover {
-        color: rgb(186, 84, 0);
-    }
-`;
-
-const MobileButtonContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-    padding-top: 0.5rem;
-`;
-
-const MobileLoginButton = styled(LoginButton)`
-    text-align: center;
-    width: 100%;
-`;
-
-const MobileRegisterButton = styled(RegisterButton)`
-    text-align: center;
-    width: 100%;
-`;
-
-// 네비바 아래 여백을 위한 스타일 수정
 const HeaderSpacer = styled.div`
     height: 64px;
 `;
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isVeinAuthModalOpen, setIsVeinAuthModalOpen] = useState(false);
+    const [modalType, setModalType] = useState<'auth' | 'vc-success' | null>(null);
+    const { login, logout, authenticated, user } = usePrivy();
     const pathname = usePathname();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleVeinAuthSuccess = () => {
+        setIsVeinAuthModalOpen(false);
+        login();
     };
 
     return (
@@ -267,36 +227,49 @@ const Header = () => {
                 <Nav>
                     <NavLink
                         href="/"
-                        isactive={pathname === '/'}
+                        $isActive={pathname === '/'}
                     >
                         Home
                     </NavLink>
                     <NavLink
                         href="/dashboard"
-                        isactive={pathname === '/dashboard'}
+                        $isActive={pathname === '/dashboard'}
                     >
                         Dashboard
                     </NavLink>
                     <NavLink
                         href="/mypage"
-                        isactive={pathname === '/mypage'}
+                        $isActive={pathname === '/mypage'}
                     >
                         Mypage
                     </NavLink>
                     <NavLink
                         href="/docs"
-                        isactive={pathname === '/docs'}
+                        $isActive={pathname === '/docs'}
                     >
                         docs
                     </NavLink>
 
                     <ButtonContainer>
-                        <LoginButton href="/login">
-                            SignIn
-                        </LoginButton>
-                        <RegisterButton href="/register">
-                            SignUp
-                        </RegisterButton>
+                        {authenticated ? (
+                            <>
+                                <LoginButton onClick={logout}>
+                                    Logout
+                                </LoginButton>
+                                <RegisterButton as="div" onClick={() => setModalType('auth')}>
+                                    {user?.wallet?.address?.slice(0, 6)}...{user?.wallet?.address?.slice(-4)}
+                                </RegisterButton>
+                            </>
+                        ) : (
+                            <>
+                                <LoginButton onClick={login}>
+                                    SignIn
+                                </LoginButton>
+                                <RegisterButton onClick={() => setModalType('auth')}>
+                                    SignUp
+                                </RegisterButton>
+                            </>
+                        )}
                     </ButtonContainer>
                 </Nav>
 
@@ -330,46 +303,14 @@ const Header = () => {
                     </svg>
                 </MenuButton>
             </HeaderInner>
-
-            <MobileMenu isOpen={isMenuOpen}>
-                <MobileNav>
-                    <MobileNavLink
-                        href="/dashboard"
-                        isactive={pathname === '/dashboard'}
-                    >
-                        dashboard
-                    </MobileNavLink>
-                    <MobileNavLink
-                        href="/pool"
-                        isactive={pathname === '/pool'}
-                    >
-                        pool
-                    </MobileNavLink>
-                    <MobileNavLink
-                        href="/mypage"
-                        isactive={pathname === '/mypage'}
-                    >
-                        mypage
-                    </MobileNavLink>
-                    <MobileNavLink
-                        href="/docs"
-                        isactive={pathname === '/docs'}
-                    >
-                        docs
-                    </MobileNavLink>
-
-                    <MobileButtonContainer>
-                        <MobileLoginButton href="/login">
-                            signin
-                        </MobileLoginButton>
-                        <MobileRegisterButton href="/register">
-                            singup
-                        </MobileRegisterButton>
-                    </MobileButtonContainer>
-                </MobileNav>
-            </MobileMenu>
-
             <HeaderSpacer />
+            <VeinAuthModal
+                isOpen={modalType !== null}
+                onClose={() => setModalType(null)}
+                onSuccess={modalType === 'auth' ? handleVeinAuthSuccess : undefined}
+                type={modalType ?? 'auth'}
+                user={user}
+            />
         </HeaderContainer>
     );
 };
