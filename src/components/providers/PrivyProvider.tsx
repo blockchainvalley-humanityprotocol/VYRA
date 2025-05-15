@@ -9,8 +9,8 @@ export default function PrivyProvider({
 }) {
     return (
         <Privy
-            appId="cmai3ams300ffl50mcsg9ol9t"
-            clientId="client-WY6LHM8cxNnrAcMhnBJHzvd4WpYany6YRsBVamMjZqTJq"
+            appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID!}
+            clientId={process.env.NEXT_PUBLIC_PRIVY_CLIENT_ID!}
             config={{
                 loginMethods: ['email', 'wallet'],
                 appearance: {

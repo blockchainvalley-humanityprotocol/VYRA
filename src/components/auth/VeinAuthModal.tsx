@@ -172,7 +172,7 @@ export default function VeinAuthModal({
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-API-Token': '1f6f7ca9-f9fd-4d00-bac0-5d763fb5cf34',
+          'X-API-Token': process.env.NEXT_PUBLIC_API_TOKEN!,
         },
         body: JSON.stringify({
           claims: {
